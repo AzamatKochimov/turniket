@@ -60,7 +60,6 @@ class AppRepositoryImpl implements AppRepository {
       builder: (context) => _buildQRDialog(context),
     );
 
-    name = sendDataToBackend(qrController.toString()) as String?;
 
     qrController.resumeCamera();
   }

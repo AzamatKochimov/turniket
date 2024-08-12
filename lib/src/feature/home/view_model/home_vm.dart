@@ -44,7 +44,7 @@ class HomeVM extends ChangeNotifier {
 
     _qrController?.scannedDataStream.listen((scanData) async {
       ref.read(scannedDataProvider.notifier).state = scanData.code;
-      _repository.sendDataToBackend(scanData.code!);
+      await _repository.sendDataToBackend(scanData.code!);
       await _repository.handleQRScan(_qrController!, context);
     });
 
