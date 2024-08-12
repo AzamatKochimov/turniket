@@ -1,0 +1,111 @@
+{
+  "@@locale": "en",
+  "helloWorld": "Hello World!",
+  "mine": "This is mine!!!",
+
+  "intro_page_header_one": "Stable and high-yield investments",
+  "intro_page_header_two": "Honest and fair cooperation",
+  "intro_page_header_three": "Socially significant project",
+  "intro_page_header_four": "Minimal risk",
+  "intro_page_header_five": "Reliable business",
+  "intro_page_subHeader_one": "Income of at least 18% per year in USD equivalent. This means at least 30% income in UZS.",
+  "intro_page_subHeader_two": "Partnership based on non-usury",
+  "intro_page_subHeader_three": "Investment in education - investment in the nation's future.",
+  "intro_page_subHeader_four": "Investment in highly liquid assets",
+  "intro_page_subHeader_five": "A company engaged in educational activities for many years.",
+
+  "drawer_language_change_header": "Language selection",
+  "drawer_language_change_subHeader": "Don't worry! You can change the language at any time.",
+
+  "next_button_text": "Next",
+
+
+  "stepper_card_button_tex": "Enter Passport",
+  "stepper_card_step_one": "Phone \nNumber",
+  "stepper_card_step_two": "Passport \nInformation",
+  "stepper_card_step_three": "Verification",
+  "stepper_card_step_four": "Investment",
+
+  "passport_page_appBar" : "Registration",
+  "passport_page_first_center_header" : "Are you a citizen of Uzbekistan?",
+  "passport_page_first_center_subHeader" : "This information is required to register you as an investor with government agencies",
+  "passport_page_first_button_yes" : "Yes",
+  "passport_page_first_button_no" : "No",
+  "passport_page_second_center_header" : "Upload Document",
+  "passport_page_second_center_subHeader" : "The system will scan the data and automatically fill out the questionnaire.",
+  "passport_page_second_passport_header" : "Passport",
+  "passport_page_second_passport_subHeader" : "Take a vertical photo of the first page of your passport",
+  "passport_page_second_id_card_header" : "ID Card",
+  "passport_page_second_id_card_subHeader" : "Send photos of the front and back of the ID card",
+
+  "home_page_drawer_user_info" : "Personal Information",
+  "home_page_drawer_support" : "Support",
+  "home_page_drawer_language" : "Language Settings",
+  "home_page_drawer_security" : "Security",
+  "home_page_drawer_settings" : "Settings",
+  "home_page_drawer_log_out" : "Log Out",
+  "home_page_drawer_public_offer" : "Public Offer",
+  "home_page_drawer_privacy_policy" : "Privacy Policy",
+  "home_page_drawer_data_processing" : "Data Processing",
+  "home_page_drawer_version" : "App Version:",
+
+  "bottom_nav_bar_main" : "Main",
+  "bottom_nav_bar_career" : "Career",
+  "bottom_nav_bar_projects" : "Projects",
+  "bottom_nav_bar_profile" : "Profile",
+  "support_page_header" : "Support",
+  "support_page_online_chat" : "Online chat",
+  "support_page_calling" : "Calling",
+  "support_page_address" : "Address",
+  "support_page_email_address" : "Email",
+  "support_page_FAQ" : "F.A.Q",
+
+
+  "sardors": "SARDOR",
+  "security_title": "Security",
+  "security_change_pin_code": "Change PIN code",
+  "security_use_biometrics": "Use biometric",
+  "security_delete_acc": "Delete account",
+
+  "complete_congrats": "Congratulations!",
+  "complete_success_text": "You have successfully registered from the PDP Invest app",
+  "complete_next": "Next",
+
+  "confirm_login": "Login",
+  "confirm_text": "A company that has been engaged in educational activities for many years.",
+  "confirm_next": "Next",
+
+  "login_next": "Next",
+  "login_login": "Login",
+  "login_text_about_company": "A company that has been engaged in educational activities for many years.",
+  "login_privacy_policy_part1": "By clicking the Continue button, you agree to the terms of ",
+  "login_privacy_policy_part2": "Privacy Policy ",
+  "login_privacy_policy_part3": "and Personal Data Processing documents",
+
+  "pin_code": "PIN-code",
+  "set_pin_code": "Set PIN-code",
+  "verify_pin_code":"Repeat the PIN-code",
+  "enter_pin_code":"Enter PIN-code",
+  "forgot_pincode":"Forgot password?",
+  "pin_code_success":"PIN-code has been set!",
+  "go_to_main_page" : "Main page",
+
+
+  "home_all_investments": "All investments",
+  "home_profit": "Profit: ",
+  "home_investing": "Invest",
+  "home_how_it_works": "How does PDP Invest work?",
+  "home_currency": "som",
+  "home_how_does_it_work": "How does it work?",
+  "home_when_profit": "When can I get profit?",
+
+  "initial_page_header_text" : "Which language is convenient for you?",
+
+  "notification_page_app_bar_title" : "Xabarnoma",
+
+  "our_telegram_chanel" : "Telegram kanalimiz",
+  "go_to_telegram" : "Telegram orqali o'qish",
+
+  "investor_page_title" : "Investor darajalari",
+  "investor_page_desc" : "Sarmoyadorlar darajasi va foyda ulushi kiritgan mablag'lari miqdoriga qarab quyidagicha taqsimlanadi:"
+}

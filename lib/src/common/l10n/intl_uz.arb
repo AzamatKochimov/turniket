@@ -1,0 +1,109 @@
+{
+  "@@locale": "uz",
+  "helloWorld": "Salom Dunyo",
+  "mine": "Bu meniki",
+
+  "intro_page_header_one": "Barqaror va yuqori daromadli sarmoya ",
+  "intro_page_header_two": "Halol va adolatli hamkorlik ",
+  "intro_page_header_three": "Ijtimoiy ahamiyatga ega boʻlgan loyiha ",
+  "intro_page_header_four": "Minimal risk ",
+  "intro_page_header_five": "Ishonchli biznes ",
+  "intro_page_subHeader_one": "AQSh dollari ekvivalentida yiliga kamida 18% daromad. Bu degani UZS’da kamida 30% daromad. ",
+  "intro_page_subHeader_two": "Riboga asoslanmagan hamkorlik ",
+  "intro_page_subHeader_three": "Bunda taʼlimga investitsiya qilinadi millat kelajagi uchun investitsiya. ",
+  "intro_page_subHeader_four": "Bunda likvidligi yuqori bo'lgan aktivlarga sarmoya kiritiladi ",
+  "intro_page_subHeader_five": "Ta’lim faoliyati bilan uzoq yil davomida shug'ullanib kelayotgan kompaniya. ",
+
+  "drawer_language_change_header": "Til tanlash",
+  "drawer_language_change_subHeader": "Havotirlanmang! Tilni istalgan payt o'zgartirishingiz mumkin.",
+  "next_button_text": "Keyingisi",
+
+  "support_page_header": "Qo‘llab-quvvatlash",
+  "support_page_online_chat": "Onlayn-chat",
+  "support_page_calling": "Qo‘ng‘iroq qilish",
+  "support_page_address": "Manzil",
+  "support_page_email_address": "Elektron pochta",
+  "support_page_FAQ": "F.A.Q",
+
+  "stepper_card_button_tex": "Pasport kiritish",
+  "stepper_card_step_one": "Telefon \nraqam",
+  "stepper_card_step_two": "Pasport \nma'lumotlari",
+  "stepper_card_step_three": "Verifikatsiya \nqilish",
+  "stepper_card_step_four": "Sarmoya \nkiritish",
+
+  "passport_page_appBar" : "Ro‘yxatdan o‘tish",
+  "passport_page_first_center_header" : "Siz O‘zbekiston fuqarosimisiz?",
+  "passport_page_first_center_subHeader" : "Ushbu ma’lumot sizni davlat idoralarida investor sifatida o’tkazish uchun kerak",
+  "passport_page_first_button_yes" : "Ha",
+  "passport_page_first_button_no" : "Yo'q",
+  "passport_page_second_center_header" : "Hujjatni joylang",
+  "passport_page_second_center_subHeader" : "Tizim ma’lumotlarni skanerlaydi va so’rovnomani avtomatik ravishda to’ldiradi.",
+  "passport_page_second_passport_header" : "Pasport",
+  "passport_page_second_passport_subHeader" : "Pasportingizni birinchi sahifasini vertikal rasmga oling",
+  "passport_page_second_id_card_header" : "ID karta",
+  "passport_page_second_id_card_subHeader" : "ID kartaning old va orqa tomonining suratini yuboring",
+
+  "home_page_drawer_user_info" : "Shaxsiy ma’lumotlar",
+  "home_page_drawer_support" : "Qo‘llab-quvvatlash",
+  "home_page_drawer_language" : "Til sozlamasi",
+  "home_page_drawer_security" : "Xavfsizlik",
+  "home_page_drawer_settings" : "Sozlamalar",
+  "home_page_drawer_log_out" : "Chiqish",
+  "home_page_drawer_public_offer" : "Ommaviy oferta",
+  "home_page_drawer_privacy_policy" : "Maxfiylik siyosati",
+  "home_page_drawer_data_processing" : "Ma’lumotlarni qayta ishlash",
+  "home_page_drawer_version" : "Ilova versiyasi:",
+
+  "bottom_nav_bar_main" : "Asosiy",
+  "bottom_nav_bar_career" : "Faoliyat",
+  "bottom_nav_bar_projects" : "Loyihalar",
+  "bottom_nav_bar_profile" : "Profil",
+
+
+  "sardors": "SARDOR",
+  "security_title": "Xavfsizlik",
+  "security_change_pin_code": "PIN-kodni o‘zgartirish",
+  "security_use_biometrics": "Biometriya orqali kirish",
+  "security_delete_acc": "Akkauntni o’chirish",
+
+  "complete_congrats": "Tabriklaymiz!",
+  "complete_success_text": "Siz PDP Invest ilovasidan muvaffaqiyatli ro‘yxatdan o‘tdingiz.",
+  "complete_next": "Keyingisi",
+
+  "confirm_login": "Kirish",
+  "confirm_text": "Ta'lim faoliyati bilan uzoq yil davomida shug'ullanib kelayotgan kompaniya.",
+  "confirm_next": "Keyingisi",
+
+  "login_next": "Keyingisi",
+  "login_login": "Kirish",
+  "login_text_about_company": "Ta'lim faoliyati bilan uzoq yil davomida shug'ullanib kelayotgan kompaniya.",
+  "login_privacy_policy_part1": "Davom etish tugmasini bosish orqali ",
+  "login_privacy_policy_part2": "Ommaviy oferta ",
+  "login_privacy_policy_part3": "va Shaxsiy ma'lumotlarni qayta ishlash hujjatlarining shartlariga roziligingizni bildirasiz",
+
+  "pin_code": "PIN-kod",
+  "set_pin_code":"PIN-kodni o'rnating",
+  "verify_pin_code":"PIN-kodni takrorlang",
+  "enter_pin_code":"PIN-kodni kiriting",
+  "forgot_pincode":"Parolni unutdingizmi?",
+  "pin_code_success":"PIN-kod o'rnatildi!",
+  "go_to_main_page" : "Asosiy sahifa",
+
+  "home_all_investments": "Mening jamg’armam",
+  "home_profit": "Jamg’arma oshishi / oy: ",
+  "home_investing": "Sarmoya kiritish",
+  "home_how_it_works": "PDP Invest qanday ishlaydi?",
+  "home_currency": "so‘m",
+  "home_how_does_it_work": "Bu qanday ishlaydi?",
+  "home_when_profit": "Foyda qachon olinadi?",
+
+  "initial_page_header_text" : "Sizga qaysi til qulay?",
+
+  "notification_page_app_bar_title" : "Xabarnoma",
+
+  "our_telegram_chanel" : "Telegram kanalimiz",
+  "go_to_telegram" : "Telegram orqali o'qish",
+
+  "investor_page_title" : "Investor darajalari",
+  "investor_page_desc" : "Sarmoyadorlar darajasi va foyda ulushi kiritgan mablag'lari miqdoriga qarab quyidagicha taqsimlanadi:"
+}

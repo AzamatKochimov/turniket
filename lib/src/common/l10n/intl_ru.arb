@@ -1,0 +1,109 @@
+{
+  "@@locale": "ru",
+  "helloWorld": "wwwwwww",
+  "mine": "This is mine",
+
+  "intro_page_header_one" : "Стабильные и высокодоходные инвестиции",
+  "intro_page_header_two" : "Честное и справедливое сотрудничество",
+  "intro_page_header_three" : "Социально значимый проект",
+  "intro_page_header_four" : "Минимальный риск",
+  "intro_page_header_five" : "Надежный бизнес",
+  "intro_page_subHeader_one" : "Доход не менее 18% годовых в эквиваленте доллара США. Это означает доход не менее 30% в суммах.",
+  "intro_page_subHeader_two" : "Сотрудничество без рибы",
+  "intro_page_subHeader_three" : "Вложение в образование - инвестиция в будущее нации.",
+  "intro_page_subHeader_four" : "Инвестиции в активы с высокой ликвидностью",
+  "intro_page_subHeader_five" : "Компания, занимающаяся образовательной деятельностью в течение долгих лет.",
+
+  "drawer_language_change_header" : "Выбор языка",
+  "drawer_language_change_subHeader" : "Не волнуйтесь! Вы можете изменить язык в любое время.",
+
+  "next_button_text" : "Следующий",
+
+  "support_page_header" : "Поддержка",
+  "support_page_online_chat" : "Онлайн-чат",
+  "support_page_calling" : "Звонок",
+  "support_page_address" : "Адрес",
+  "support_page_email_address" : "Электронная почта",
+  "support_page_FAQ" : "Часто задаваемые вопросы",
+
+  "stepper_card_button_tex" : "Ввод паспорта",
+  "stepper_card_step_one" : "Номер \nтелефона",
+  "stepper_card_step_two" : "Паспортные \nданные",
+  "stepper_card_step_three" : "Верификация",
+  "stepper_card_step_four" : "Инвестиции",
+
+  "passport_page_appBar" : "Регистрация",
+  "passport_page_first_center_header" : "Вы гражданин Узбекистана?",
+  "passport_page_first_center_subHeader" : "Эта информация необходима для регистрации вас в государственных учреждениях в качестве инвестора",
+  "passport_page_first_button_yes" : "Да",
+  "passport_page_first_button_no" : "Нет",
+  "passport_page_second_center_header" : "Загрузите документ",
+  "passport_page_second_center_subHeader" : "Система отсканирует данные и автоматически заполнит анкету.",
+  "passport_page_second_passport_header" : "Паспорт",
+  "passport_page_second_passport_subHeader" : "Сфотографируйте первую страницу вашего паспорта вертикально",
+  "passport_page_second_id_card_header" : "ID карта",
+  "passport_page_second_id_card_subHeader" : "Отправьте фотографии передней и задней стороны ID карты",
+
+  "home_page_drawer_user_info" : "Личная информация",
+  "home_page_drawer_support" : "Поддержка",
+  "home_page_drawer_language" : "Настройка языка",
+  "home_page_drawer_security" : "Безопасность",
+  "home_page_drawer_settings" : "Настройки",
+  "home_page_drawer_log_out" : "Выход",
+  "home_page_drawer_public_offer" : "Публичная оферта",
+  "home_page_drawer_privacy_policy" : "Политика конфиденциальности",
+  "home_page_drawer_data_processing" : "Обработка данных",
+  "home_page_drawer_version" : "Версия приложения:",
+
+  "bottom_nav_bar_main" : "Главная",
+  "bottom_nav_bar_career" : "Карьера",
+  "bottom_nav_bar_projects" : "Проекты",
+  "bottom_nav_bar_profile" : "Профиль",
+
+  "sardors": "SARDOR",
+  "security_title": "Безопасность",
+  "security_change_pin_code": "Изменить PIN-код",
+  "security_use_biometrics": "Использовать биометрию",
+  "security_delete_acc": "Удалить аккаунт",
+
+  "complete_congrats": "Поздравляем!",
+  "complete_success_text": "Вы успешно зарегистрировались в приложении PDP Invest.",
+  "complete_next": "Следующий",
+
+  "confirm_login": "Войти",
+  "confirm_text": "Компания, которая уже много лет занимается образовательной деятельностью.",
+  "confirm_next": "Следующий",
+
+  "login_next": "Следующий",
+  "login_login": "Войти",
+  "login_text_about_company": "Компания, которая уже много лет занимается образовательной деятельностью.",
+  "login_privacy_policy_part1": "Нажимая кнопку «Продолжить», вы соглашаетесь с условиями ",
+  "login_privacy_policy_part2": "Публичной оферты ",
+  "login_privacy_policy_part3": "и документов по обработке персональных данных.",
+
+  "pin_code": "PIN-код",
+  "set_pin_code": "Установите PIN-код",
+  "verify_pin_code":"Повторите PIN-код",
+  "enter_pin_code":"Введите PIN-код",
+  "forgot_pincode":"Забыли пароль?",
+  "pin_code_success":"PIN-код установлен!",
+  "go_to_main_page" : "Главная страница",
+
+  "home_all_investments": "Все инвестиции",
+  "home_profit": "Выгода: ",
+  "home_investing": "Инвестировать",
+  "home_how_it_works": "Как работает PDP Invest?",
+  "home_how_does_it_work": "Как это работает?",
+  "home_when_profit": "Когда я смогу получить прибыль?",
+  "home_currency": "сум",
+
+  "initial_page_header_text" : "Какой язык вам удобен?",
+
+  "notification_page_app_bar_title" : "Xabarnoma",
+
+  "our_telegram_chanel" : "Telegram kanalimiz",
+  "go_to_telegram" : "Telegram orqali o'qish",
+
+  "investor_page_title" : "Investor darajalari",
+  "investor_page_desc" : "Sarmoyadorlar darajasi va foyda ulushi kiritgan mablag'lari miqdoriga qarab quyidagicha taqsimlanadi:"
+}
