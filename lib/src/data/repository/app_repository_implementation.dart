@@ -24,6 +24,7 @@ class AppRepositoryImpl implements AppRepository {
   }
 
   Future<String?> sendDataToBackend(String qrData) async {
+    log("sendDataToBackend");
     final params = <String, dynamic>{
       'qrData': qrData,
     };
@@ -53,6 +54,7 @@ class AppRepositoryImpl implements AppRepository {
       QRViewController qrController,
       BuildContext context,
       ) async {
+    log("handleQRScan");
     qrController.pauseCamera();
 
     await showDialog(
@@ -75,7 +77,7 @@ class AppRepositoryImpl implements AppRepository {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               MaterialButton(
-                onPressed: () async {
+                onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
                 color: Colors.red,
@@ -83,7 +85,7 @@ class AppRepositoryImpl implements AppRepository {
                 child: const Text('Ishni tugatish'),
               ),
               MaterialButton(
-                onPressed: () async {
+                onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
                 },
                 color: Colors.green,

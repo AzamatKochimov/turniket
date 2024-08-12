@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,18 +40,24 @@ class HomeVM extends ChangeNotifier {
   }
 
   void setQRController(QRViewController controller, BuildContext context) {
-    _qrController = controller;
+    log("setQRController");
+    if (_qrController == null) {
+      _qrController = controller;
 
-    _qrController?.flipCamera();
+      _qrController?.flipCamera();
 
-    _qrController?.scannedDataStream.listen((scanData) async {
-      ref.read(scannedDataProvider.notifier).state = scanData.code;
-      await _repository.sendDataToBackend(scanData.code!);
-      await _repository.handleQRScan(_qrController!, context);
-    });
-
-
+      _qrController?.scannedDataStream.listen((scanData) async {
+        final previousScanData = ref.read(scannedDataProvider.notifier).state;
+        // Prevent re-processing the same QR code
+        if (previousScanData != scanData.code) {
+          ref.read(scannedDataProvider.notifier).state = scanData.code;
+          await _repository.sendDataToBackend(scanData.code!);
+          await _repository.handleQRScan(_qrController!, context);
+        }
+      });
+    }
   }
+
 
   Future<void> initializeCamera() async {
     final cameras = await availableCameras();
