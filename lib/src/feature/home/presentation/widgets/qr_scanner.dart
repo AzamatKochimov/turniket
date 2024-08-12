@@ -4,17 +4,17 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../view_model/home_vm.dart';
 
-
 class QrScanner extends ConsumerWidget {
   const QrScanner({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeVM = ref.watch(homeVMProvider);
-    return  QRView(
+    final homeVM = ref.watch(homeVMProvider); // Get the HomeVM instance
+
+    return QRView(
       key: GlobalKey(debugLabel: 'QR'),
       onQRViewCreated: (controller) {
-        homeVM.setQRController(controller, context);
+        homeVM.setQRController(controller, context); // Use the HomeVM instance
       },
       overlay: QrScannerOverlayShape(
         borderColor: Colors.red,
