@@ -52,7 +52,7 @@ class AppRepositoryImpl implements AppRepository {
 
   Future<void> handleQRScan(
       QRViewController qrController,
-      BuildContext context,
+      BuildContext context
       ) async {
     log("handleQRScan");
     qrController.pauseCamera();
@@ -64,6 +64,36 @@ class AppRepositoryImpl implements AppRepository {
 
 
     qrController.resumeCamera();
+  }
+
+  Future<void> captureAndUploadPhoto(CameraController cameraController) async {
+    try {
+      // Capture the photo
+      final XFile photo = await cameraController.takePicture();
+
+      // Convert the image to Base64
+      final bytes = await photo.readAsBytes();
+      final base64Image = base64Encode(bytes);
+
+      // Upload the photo to the API
+      // String basicAuth = 'Basic ${base64Encode(utf8.encode('TurniketBitrixBasicAuth:SqvMgAhzGWwDYcHb3Z'))}';
+      // var response = await http.post(
+      //   Uri.parse('${ApiConst.baseUrl}/api/attachment/v1/attachment/upload'),
+      //   headers: {'Authorization': basicAuth},
+      //   body: {'image_base64': base64Image},
+      // );
+
+      var response = await ApiService.post(ApiConst.photoId, {'image_base64': base64Image}, params: {});
+      Map<String, dynamic> responseObj = jsonDecode(response!);
+
+      if (responseObj['success'] == true) {
+        log('Photo uploaded successfully!');
+      } else {
+        log('Failed to upload photo: ${responseObj['errors']['errorMsg']}');
+      }
+    } catch (e) {
+      log('Error capturing or uploading photo: $e');
+    }
   }
 
   Widget _buildQRDialog(BuildContext context) {
@@ -79,6 +109,7 @@ class AppRepositoryImpl implements AppRepository {
               MaterialButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // Close the dialog
+                  // captureAndUploadPhoto(cameraController);
                 },
                 color: Colors.red,
                 textColor: Colors.white,
@@ -86,6 +117,7 @@ class AppRepositoryImpl implements AppRepository {
               ),
               MaterialButton(
                 onPressed: () {
+                  // captureAndUploadPhoto(cameraController);
                   Navigator.of(context).pop(); // Close the dialog
                 },
                 color: Colors.green,

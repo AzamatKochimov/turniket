@@ -101,14 +101,15 @@ class ApiService {
       {required Map<String, dynamic> params}) async {
     try {
       // final AppStorage prefs = await AppStorage.getInstance();
-      String? token = await AppStorage.$read(key: StorageKey.token);
+      // String? token = await AppStorage.$read(key: StorageKey.token);
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('TurniketBitrixBasicAuth:SqvMgAhzGWwDYcHb3Z'))}';
       final response = await (await initDio()).post<dynamic>(
         api,
         data: data,
         queryParameters: params,
         options: Options(
           headers: {
-            'Authorization': 'Bearer $token',
+            'Authorization': basicAuth,
             'Content-type': 'application/json; charset=UTF-8',
             'Accept': 'application/json; charset=UTF-8',
           },

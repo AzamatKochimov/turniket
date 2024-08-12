@@ -43,7 +43,6 @@ class HomeVM extends ChangeNotifier {
     log("setQRController");
     if (_qrController == null) {
       _qrController = controller;
-
       _qrController?.flipCamera();
 
       _qrController?.scannedDataStream.listen((scanData) async {
@@ -52,17 +51,16 @@ class HomeVM extends ChangeNotifier {
         if (previousScanData != scanData.code) {
           ref.read(scannedDataProvider.notifier).state = scanData.code;
           await _repository.sendDataToBackend(scanData.code!);
-          await _repository.handleQRScan(_qrController!, context);
+          await _repository.handleQRScan(_qrController!, context); // Pass CameraController
         }
       });
     }
   }
 
-
   Future<void> initializeCamera() async {
     final cameras = await availableCameras();
     final frontCamera = cameras.firstWhere(
-      (camera) => camera.lensDirection == CameraLensDirection.front,
+          (camera) => camera.lensDirection == CameraLensDirection.front,
     );
 
     _cameraController = CameraController(
@@ -72,10 +70,6 @@ class HomeVM extends ChangeNotifier {
     );
 
     await _repository.initializeCamera(_cameraController!);
-  }
-
-  Future<void> getUserName()async{
-
   }
 
   @override
