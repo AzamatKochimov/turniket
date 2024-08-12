@@ -2,20 +2,14 @@ class ApiConst {
   static const connectionTimeout = 20000;
   static const sendTimeout = 20000;
 
-  static const baseUrl = 'https://online.atomic.uz/';
+  static const baseUrl = 'https://api.pdp.uz';
   static const version = '';
 
   // Courses api
   static const login = '/api/login';
-  static const register = '/api/register';
-  static const createCategory = "/api/categories";
-  static const getAllCategories = "/api/categories";
-  static const createExpense = "/api/transactions";
-  static const getAllExpenses = "/api/transactions";
-  static const editCategory = "/api/categories";
-  static const deleteCategory = "/api/categories";
-  static const uploadAvatar = "/api/avatar";
-
+  static const qrData = '/api/turniket/v1/bitrix/inout/event';
+  static const user = '/api/turniket/v1/bitrix/inout/check?qrData={{}}';
+  static const photoId = '/api/attachment/v1/attachment/upload';
 }
 
 class ApiParams {
