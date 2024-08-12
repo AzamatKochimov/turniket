@@ -2,11 +2,11 @@ class ApiConst {
   static const connectionTimeout = 20000;
   static const sendTimeout = 20000;
 
-  static const baseUrl = 'https://online.atomic.uz/';
+  static const baseUrl = 'https://api.pdp.uz';
   static const version = '';
 
   // Courses api
-  static const login = '/api/login';
+  static const login = '/api/auth/v1/user/me';
   static const register = '/api/register';
   static const createCategory = "/api/categories";
   static const getAllCategories = "/api/categories";
