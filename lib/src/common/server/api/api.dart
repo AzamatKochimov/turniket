@@ -60,15 +60,34 @@ class ApiService {
     return headers;
   }
 
-  static Future<String?> get(String api, [Map<String, dynamic>? params]) async {
+  // static Future<String?> get(String api, [Map<String, dynamic>? params]) async {
+  //   try {
+  //     final Response<dynamic> response =
+  //         await (await initDio()).get<dynamic>(api, queryParameters: params);
+  //     return jsonEncode(response.data);
+  //   } on TimeoutException catch (_) {
+  //     l.e("The connection has timed out, Please try again!");
+  //     rethrow;
+  //   } on DioError catch (e) {
+  //     l.e(e.response.toString());
+  //     rethrow;
+  //   } on Object catch (e) {
+  //     l.e(e.toString());
+  //     rethrow;
+  //   }
+  // }
+  static Future<String?> get(String api, [Map<String, dynamic>? params, Map<String, String>? additionalHeaders]) async {
     try {
+      final Dio dio = await initDio();
+      dio.options.headers.addAll(additionalHeaders ?? {});
+
       final Response<dynamic> response =
-          await (await initDio()).get<dynamic>(api, queryParameters: params);
+      await dio.get<dynamic>(api, queryParameters: params);
       return jsonEncode(response.data);
     } on TimeoutException catch (_) {
       l.e("The connection has timed out, Please try again!");
       rethrow;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       l.e(e.response.toString());
       rethrow;
     } on Object catch (e) {
@@ -76,6 +95,7 @@ class ApiService {
       rethrow;
     }
   }
+
 
   static Future<String?> post(String api, Map<String, dynamic> data,
       {required Map<String, dynamic> params}) async {

@@ -6,10 +6,16 @@ class ApiConst {
   static const version = '';
 
   // Courses api
-  static const login = '/api/login';
-  static const qrData = '/api/turniket/v1/bitrix/inout/event';
-  static const user = '/api/turniket/v1/bitrix/inout/check?qrData={{}}';
-  static const photoId = '/api/attachment/v1/attachment/upload';
+  static const login = '/api/auth/v1/user/me';
+  static const register = '/api/register';
+  static const createCategory = "/api/categories";
+  static const getAllCategories = "/api/categories";
+  static const createExpense = "/api/transactions";
+  static const getAllExpenses = "/api/transactions";
+  static const editCategory = "/api/categories";
+  static const deleteCategory = "/api/categories";
+  static const uploadAvatar = "/api/avatar";
+
 }
 
 class ApiParams {

@@ -10,4 +10,7 @@ final class AppRouteName {
   // home
   static const String homePage = "/";
 
+  // auth
+  static const String loginPage = "/login_page";
+
 }
