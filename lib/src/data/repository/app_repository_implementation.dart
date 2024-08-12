@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:l/l.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../../common/server/api/api.dart';
@@ -48,20 +47,19 @@ class AppRepositoryImpl implements AppRepository {
     } catch (e) {
       l.e('Error sending data: $e');
     }
-    return null;
   }
 
   Future<void> handleQRScan(
       QRViewController qrController,
       BuildContext context,
       ) async {
-
-    qrController.stopCamera();
+    qrController.pauseCamera();
 
     await showDialog(
       context: context,
       builder: (context) => _buildQRDialog(context),
     );
+
 
     qrController.resumeCamera();
   }
@@ -78,7 +76,7 @@ class AppRepositoryImpl implements AppRepository {
             children: [
               MaterialButton(
                 onPressed: () {
-                  context.pop(); // Close the dialog
+                  Navigator.of(context).pop(); // Close the dialog
                 },
                 color: Colors.red,
                 textColor: Colors.white,
@@ -86,7 +84,7 @@ class AppRepositoryImpl implements AppRepository {
               ),
               MaterialButton(
                 onPressed: () {
-                  context.pop(); // Close the dialog
+                  Navigator.of(context).pop(); // Close the dialog
                 },
                 color: Colors.green,
                 textColor: Colors.white,
