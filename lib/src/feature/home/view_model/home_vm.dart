@@ -40,12 +40,14 @@ class HomeVM extends ChangeNotifier {
   void setQRController(QRViewController controller, BuildContext context) {
     _qrController = controller;
 
+    // Use the front camera by default for QR scanning
     _qrController?.flipCamera();
 
     _qrController?.scannedDataStream.listen((scanData) async {
       ref.read(scannedDataProvider.notifier).state = scanData.code;
-      _repository.sendDataToBackend(scanData.code!);
+      await _repository.sendDataToBackend(scanData.code!);
       await _repository.handleQRScan(_qrController!, context);
+      return;
     });
 
 

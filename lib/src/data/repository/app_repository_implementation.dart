@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:l/l.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../../common/server/api/api.dart';
@@ -47,20 +48,20 @@ class AppRepositoryImpl implements AppRepository {
     } catch (e) {
       l.e('Error sending data: $e');
     }
+    return null;
   }
 
   Future<void> handleQRScan(
       QRViewController qrController,
       BuildContext context,
       ) async {
-    qrController.pauseCamera();
+
+    qrController.stopCamera();
 
     await showDialog(
       context: context,
       builder: (context) => _buildQRDialog(context),
     );
-
-    name = sendDataToBackend(qrController.toString()) as String?;
 
     qrController.resumeCamera();
   }
@@ -69,23 +70,23 @@ class AppRepositoryImpl implements AppRepository {
     return AlertDialog(
       title: Text(name!, textAlign: TextAlign.center),
       actions: [
-        Container(
+        SizedBox(
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               MaterialButton(
-                onPressed: () async {
-                  Navigator.of(context).pop(); // Close the dialog
+                onPressed: () {
+                  context.pop(); // Close the dialog
                 },
                 color: Colors.red,
                 textColor: Colors.white,
                 child: const Text('Ishni tugatish'),
               ),
               MaterialButton(
-                onPressed: () async {
-                  Navigator.of(context).pop(); // Close the dialog
+                onPressed: () {
+                  context.pop(); // Close the dialog
                 },
                 color: Colors.green,
                 textColor: Colors.white,
