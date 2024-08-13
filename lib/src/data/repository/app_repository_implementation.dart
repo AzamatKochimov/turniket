@@ -19,11 +19,13 @@ class AppRepositoryImpl implements AppRepository {
   factory AppRepositoryImpl() => _instance;
 
   String? name = "";
+
   Future<void> initializeCamera(CameraController cameraController) async {
     await cameraController.initialize();
   }
 
   Future<String?> sendDataToBackend(String qrData) async {
+    log("sendDataToBackend");
     final params = <String, dynamic>{
       'qrData': qrData,
     };
@@ -91,7 +93,7 @@ class AppRepositoryImpl implements AppRepository {
     return AlertDialog(
       title: Text(name!, textAlign: TextAlign.center),
       actions: [
-        SizedBox(
+        Container(
           width: double.infinity,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

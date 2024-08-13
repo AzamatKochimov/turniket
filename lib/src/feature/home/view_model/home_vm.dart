@@ -41,6 +41,26 @@ class HomeVM extends ChangeNotifier {
     }
   }
 
+  void setQRController(QRViewController controller, BuildContext context) {
+    log("setQRController");
+    if (_qrController == null) {
+      _qrController = controller;
+
+      _qrController?.flipCamera();
+
+      _qrController?.scannedDataStream.listen((scanData) async {
+        final previousScanData = ref.read(scannedDataProvider.notifier).state;
+        // Prevent re-processing the same QR code
+        if (previousScanData != scanData.code) {
+          ref.read(scannedDataProvider.notifier).state = scanData.code;
+          await _repository.sendDataToBackend(scanData.code!);
+          await _repository.handleQRScan(_qrController!, context);
+        }
+      });
+    }
+  }
+
+
   Future<void> initializeCamera() async {
     if (_cameraController != null && _cameraController!.value.isInitialized) {
       log('Camera is already initialized');
@@ -97,7 +117,6 @@ class HomeVM extends ChangeNotifier {
   void dispose() {
     _qrController?.dispose();
     _cameraController?.dispose();
-    _cameraController = null;
     super.dispose();
   }
 }
