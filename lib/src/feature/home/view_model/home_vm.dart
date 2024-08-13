@@ -94,6 +94,7 @@ class HomeVM extends ChangeNotifier {
     } catch (e) {
       log('Error sending data: $e');
     }
+    return null;
   }
 
   Future<void> handleQRScan(QRViewController qrController, BuildContext context) async {
