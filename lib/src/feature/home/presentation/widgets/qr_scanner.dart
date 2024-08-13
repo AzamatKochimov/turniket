@@ -9,12 +9,12 @@ class QrScanner extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeVM = ref.watch(homeVMProvider); // Get the HomeVM instance
+    final homeVM = ref.watch(homeVMProvider);
 
     return QRView(
       key: GlobalKey(debugLabel: 'QR'),
       onQRViewCreated: (controller) {
-        homeVM.setQRController(controller, context); // Use the HomeVM instance
+        homeVM.setQRController(controller, context);
       },
       overlay: QrScannerOverlayShape(
         borderColor: Colors.red,

@@ -20,6 +20,8 @@ class HomeVM extends ChangeNotifier {
   final scannedDataProvider = StateProvider<String?>((ref) => null);
   final name = null;
 
+  bool _isDialogShowing = false;
+
   HomeVM(this.ref) {
     _loadData();
   }
@@ -39,51 +41,63 @@ class HomeVM extends ChangeNotifier {
     }
   }
 
+  Future<void> initializeCamera() async {
+    if (_cameraController != null && _cameraController!.value.isInitialized) {
+      log('Camera is already initialized');
+      return;
+    }
+
+    try {
+      final cameras = await availableCameras();
+      final frontCamera = cameras.firstWhere(
+            (camera) => camera.lensDirection == CameraLensDirection.front,
+      );
+
+      _cameraController = CameraController(
+        frontCamera,
+        ResolutionPreset.high,
+        enableAudio: false,
+      );
+
+      await _cameraController!.initialize();
+      log('Camera initialized successfully');
+    } catch (e) {
+      log('Error initializing camera: $e');
+      _cameraController = null;
+    }
+  }
+
   void setQRController(QRViewController controller, BuildContext context) {
     log("setQRController");
     if (_qrController == null) {
       _qrController = controller;
 
-      _qrController?.flipCamera();
+      // _qrController!.flipCamera();
 
       _qrController?.scannedDataStream.listen((scanData) async {
-        final previousScanData = ref.read(scannedDataProvider.notifier).state;
-        // Prevent re-processing the same QR code
-        if (previousScanData != scanData.code) {
-          ref.read(scannedDataProvider.notifier).state = scanData.code;
+        if (!_isDialogShowing) {
+          _isDialogShowing = true;
+
+          // Ensure the camera is initialized before taking a picture
+          if (_cameraController == null || !_cameraController!.value.isInitialized) {
+            await initializeCamera();
+          }
+
+          // Proceed with sending data and showing the dialog
           await _repository.sendDataToBackend(scanData.code!);
-          await _repository.handleQRScan(_qrController!, context);
+          await _repository.handleQRScan(_qrController!, context, _cameraController!);
+
+          _isDialogShowing = false;
         }
       });
     }
-  }
-
-
-  }
-
-  Future<void> initializeCamera() async {
-    final cameras = await availableCameras();
-    final frontCamera = cameras.firstWhere(
-      (camera) => camera.lensDirection == CameraLensDirection.front,
-    );
-
-    _cameraController = CameraController(
-      frontCamera,
-      ResolutionPreset.high,
-      enableAudio: false,
-    );
-
-    await _repository.initializeCamera(_cameraController!);
-  }
-
-  Future<void> getUserName()async{
-
   }
 
   @override
   void dispose() {
     _qrController?.dispose();
     _cameraController?.dispose();
+    _cameraController = null;
     super.dispose();
   }
 }
