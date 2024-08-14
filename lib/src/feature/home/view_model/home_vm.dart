@@ -39,36 +39,36 @@ class HomeVM extends ChangeNotifier {
     }
   }
 
-  Future<void> initializeCamera() async {
-    if (_cameraController != null) {
-      if (_cameraController!.value.isInitialized) {
-        log('Camera is already initialized');
-        return;
-      } else {
-        await _cameraController!.dispose(); // Dispose of the existing controller if it's not initialized properly
-        _cameraController = null;
-      }
-    }
-
-    try {
-      final cameras = await availableCameras();
-      final frontCamera = cameras.firstWhere(
-            (camera) => camera.lensDirection == CameraLensDirection.front,
-      );
-
-      _cameraController = CameraController(
-        frontCamera,
-        ResolutionPreset.high,
-        enableAudio: false,
-      );
-
-      await _cameraController!.initialize();
-      log('Camera initialized successfully');
-    } catch (e) {
-      log('Error initializing camera: $e');
-      _cameraController = null;
-    }
-  }
+  // Future<void> initializeCamera() async {
+  //   if (_cameraController != null) {
+  //     if (_cameraController!.value.isInitialized) {
+  //       log('Camera is already initialized');
+  //       return;
+  //     } else {
+  //       await _cameraController!.dispose(); // Dispose of the existing controller if it's not initialized properly
+  //       _cameraController = null;
+  //     }
+  //   }
+  //
+  //   try {
+  //     final cameras = await availableCameras();
+  //     final frontCamera = cameras.firstWhere(
+  //           (camera) => camera.lensDirection == CameraLensDirection.front,
+  //     );
+  //
+  //     _cameraController = CameraController(
+  //       frontCamera,
+  //       ResolutionPreset.high,
+  //       enableAudio: false,
+  //     );
+  //
+  //     await _cameraController!.initialize();
+  //     log('Camera initialized successfully');
+  //   } catch (e) {
+  //     log('Error initializing camera: $e');
+  //     _cameraController = null;
+  //   }
+  // }
 
   Future<String?> sendDataToBackend(String qrData) async {
     final params = <String, dynamic>{
@@ -106,25 +106,25 @@ class HomeVM extends ChangeNotifier {
       builder: (context) => _buildQRDialog(context),
     );
 
-    if (_cameraController?.value.isInitialized ?? false) {
-      try {
-        XFile picture = await _cameraController!.takePicture();
-        log('Picture taken: ${picture.path}');
-        // Handle the picture (e.g., send it to the backend or store it locally)
-
-        await Future.delayed(const Duration(seconds: 2));
-      } catch (e) {
-        log('Error taking picture: $e');
-      }
-    } else {
-      log('Camera is not initialized');
-    }
+    // if (_cameraController?.value.isInitialized ?? false) {
+    //   try {
+    //     XFile picture = await _cameraController!.takePicture();
+    //     log('Picture taken: ${picture.path}');
+    //     // Handle the picture (e.g., send it to the backend or store it locally)
+    //
+    //     await Future.delayed(const Duration(seconds: 2));
+    //   } catch (e) {
+    //     log('Error taking picture: $e');
+    //   }
+    // } else {
+    //   log('Camera is not initialized');
+    // }
 
     // Ensure the QR scanner is resumed properly
-    if (_qrController != null) {
+    // if (_qrController != null) {
       _qrController!.resumeCamera();
-      _cameraController!.initialize();
-    }
+      // _cameraController!.initialize();
+    // }
   }
 
   Widget _buildQRDialog(BuildContext context) {
@@ -169,9 +169,9 @@ class HomeVM extends ChangeNotifier {
         if (!_isDialogShowing) {
           _isDialogShowing = true;
 
-          if (_cameraController == null || !_cameraController!.value.isInitialized) {
-            await initializeCamera();
-          }
+          // if (_cameraController == null || !_cameraController!.value.isInitialized) {
+          //   await initializeCamera();
+          // }
 
           await sendDataToBackend(scanData.code!);
           await handleQRScan(_qrController!, context);
