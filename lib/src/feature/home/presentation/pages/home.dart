@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:time_pad/src/feature/home/presentation/widgets/home_widgets.dart';
-import 'package:time_pad/src/feature/home/presentation/widgets/qr_scanner.dart';
 
 import '../../view_model/home_vm.dart';
+import '../widgets/home_widgets.dart';
+import '../widgets/qr_scanner.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
