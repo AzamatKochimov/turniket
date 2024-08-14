@@ -4,7 +4,10 @@ import 'dart:developer';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:http/http.dart' as http;
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:time_pad/src/common/routes/app_route_name.dart';
 
 import '../../../common/server/api/api.dart';
 import '../../../common/server/api/api_constants.dart';
@@ -15,6 +18,10 @@ class HomeVM extends ChangeNotifier {
   final AutoDisposeChangeNotifierProviderRef<HomeVM> ref;
 
   bool _isLoading = true;
+  bool _isPosting = false;
+  String? _photoId;
+  String? _qrData;
+  String? _pendingStatus;  // New field to store pending status
   String? _error;
   QRViewController? _qrController;
   CameraController? _cameraController;
@@ -26,7 +33,10 @@ class HomeVM extends ChangeNotifier {
   }
 
   bool get isLoading => _isLoading;
+  bool get isPosting => _isPosting;
   String? get error => _error;
+  String? get photoId => _photoId;
+  String? get qrData => _qrData;
 
   Future<void> _loadData() async {
     try {
@@ -39,38 +49,22 @@ class HomeVM extends ChangeNotifier {
     }
   }
 
-  // Future<void> initializeCamera() async {
-  //   if (_cameraController != null) {
-  //     if (_cameraController!.value.isInitialized) {
-  //       log('Camera is already initialized');
-  //       return;
-  //     } else {
-  //       await _cameraController!.dispose(); // Dispose of the existing controller if it's not initialized properly
-  //       _cameraController = null;
-  //     }
-  //   }
-  //
-  //   try {
-  //     final cameras = await availableCameras();
-  //     final frontCamera = cameras.firstWhere(
-  //           (camera) => camera.lensDirection == CameraLensDirection.front,
-  //     );
-  //
-  //     _cameraController = CameraController(
-  //       frontCamera,
-  //       ResolutionPreset.high,
-  //       enableAudio: false,
-  //     );
-  //
-  //     await _cameraController!.initialize();
-  //     log('Camera initialized successfully');
-  //   } catch (e) {
-  //     log('Error initializing camera: $e');
-  //     _cameraController = null;
-  //   }
-  // }
+  void updatePhotoId(String id) {
+    _photoId = id;
+    notifyListeners();
 
-  Future<String?> sendDataToBackend(String qrData) async {
+    if (_pendingStatus != null) {
+      postData(_pendingStatus!);
+      _pendingStatus = null;
+    }
+  }
+
+  void updateQRData(String qr) {
+    _qrData = qr;
+    notifyListeners();
+  }
+
+  Future<String?> getUserName(String qrData) async {
     final params = <String, dynamic>{
       'qrData': qrData,
     };
@@ -97,6 +91,66 @@ class HomeVM extends ChangeNotifier {
     return null;
   }
 
+  void setPendingStatus(String status) {
+    log("==================== setPendingStatus: $status =======================");
+    _pendingStatus = status;
+
+    if (_photoId != null) {
+      log("==================== PhotoID is: $_photoId =======================");
+      postData(status);
+      _pendingStatus = null;
+    }
+  }
+
+  Future<void> postData(String status) async {
+    log("============================== PostData =================================");
+    if (_photoId == null) {
+      log("Error: Photo ID is null");
+      return;
+    }
+
+    if (_qrData == null) {
+      log("Error: QR Data is null");
+      return;
+    }
+
+    _isPosting = true;
+    notifyListeners();
+
+    final dateTime = DateTime.now().millisecondsSinceEpoch;
+
+    final data = {
+      "qrData": _qrData,
+      "dateTime": dateTime,
+      "status": status,
+      "photoId": _photoId,
+    };
+
+    try {
+      String basicAuth = 'Basic ${base64Encode(utf8.encode('TurniketBitrixBasicAuth:SqvMgAhzGWwDYcHb3Z'))}';
+
+      final response = await http.post(
+        Uri.parse('https://api.pdp.uz/api/turniket/v1/bitrix/inout/event'),
+        headers: {
+          'Authorization': basicAuth,
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(data),
+      );
+
+      if (response.statusCode == 200) {
+        log("Data posted successfully: ${response.body}");
+      } else {
+        log("Failed to post data: ${response.statusCode}");
+      }
+    } catch (e) {
+      log('Error posting data: $e');
+    } finally {
+      _isPosting = false;
+      notifyListeners();
+    }
+  }
+
   Future<void> handleQRScan(QRViewController qrController, BuildContext context) async {
     log("-----------handleQRScan-----------");
     qrController.pauseCamera();
@@ -106,25 +160,7 @@ class HomeVM extends ChangeNotifier {
       builder: (context) => _buildQRDialog(context),
     );
 
-    // if (_cameraController?.value.isInitialized ?? false) {
-    //   try {
-    //     XFile picture = await _cameraController!.takePicture();
-    //     log('Picture taken: ${picture.path}');
-    //     // Handle the picture (e.g., send it to the backend or store it locally)
-    //
-    //     await Future.delayed(const Duration(seconds: 2));
-    //   } catch (e) {
-    //     log('Error taking picture: $e');
-    //   }
-    // } else {
-    //   log('Camera is not initialized');
-    // }
-
-    // Ensure the QR scanner is resumed properly
-    // if (_qrController != null) {
-      _qrController!.resumeCamera();
-      // _cameraController!.initialize();
-    // }
+    _qrController!.resumeCamera();
   }
 
   Widget _buildQRDialog(BuildContext context) {
@@ -139,7 +175,9 @@ class HomeVM extends ChangeNotifier {
             children: [
               MaterialButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  setPendingStatus("EXIT");
+                  log("==================== EXIT =======================");
+                  context.go(AppRouteName.confirmPage);
                 },
                 color: Colors.red,
                 textColor: Colors.white,
@@ -147,7 +185,9 @@ class HomeVM extends ChangeNotifier {
               ),
               MaterialButton(
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  setPendingStatus("ENTER");
+                  log("==================== ENTER =======================");
+                  context.go(AppRouteName.confirmPage);
                 },
                 color: Colors.green,
                 textColor: Colors.white,
@@ -169,11 +209,10 @@ class HomeVM extends ChangeNotifier {
         if (!_isDialogShowing) {
           _isDialogShowing = true;
 
-          // if (_cameraController == null || !_cameraController!.value.isInitialized) {
-          //   await initializeCamera();
-          // }
+          // Update QR data
+          updateQRData(scanData.code!);
 
-          await sendDataToBackend(scanData.code!);
+          await getUserName(scanData.code!);
           await handleQRScan(_qrController!, context);
 
           _isDialogShowing = false;

@@ -13,4 +13,7 @@ final class AppRouteName {
   // auth
   static const String loginPage = "/login_page";
 
+  // confirmation
+  static const String confirmPage = "/confirm_page";
+
 }

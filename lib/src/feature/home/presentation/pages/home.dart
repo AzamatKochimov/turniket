@@ -35,29 +35,39 @@ class HomePage extends ConsumerWidget {
       );
     }
 
-    return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Image.asset(
-                'assets/background.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-            const Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Stack(
+      children: [
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+            child: Stack(
               children: [
-                HomeInfo(),
-                Expanded(
-                  child: QrScanner(),
+                Positioned.fill(
+                  child: Image.asset(
+                    'assets/background.png',
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    HomeInfo(),
+                    Expanded(
+                      child: QrScanner(),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+        if (homeVM.isPosting) // Show loading indicator during postData
+          const Positioned.fill(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+      ],
     );
   }
 }

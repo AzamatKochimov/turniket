@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:time_pad/src/feature/auth/presentation/pages/login_page.dart";
+import "package:time_pad/src/feature/confirmaton/presentation/confirmation.dart";
 
 import "../../feature/home/presentation/pages/home.dart";
 import "../../feature/main/presentation/pages/main_page.dart";
@@ -27,6 +28,13 @@ class AppRouter {
         path: AppRouteName.loginPage,
         builder: (BuildContext context, GoRouterState state) {
           return const LoginPage();
+        },
+      ),
+      GoRoute(
+        name: "ConfirmPage",
+        path: AppRouteName.confirmPage,
+        builder: (BuildContext context, GoRouterState state) {
+          return const Confirmation();
         },
       ),
       ShellRoute(
