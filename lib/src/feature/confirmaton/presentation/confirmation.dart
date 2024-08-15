@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
+import 'package:time_pad/src/common/local/app_storage.dart';
 import 'package:time_pad/src/common/routes/app_route_name.dart';
 
 import '../../home/view_model/home_vm.dart';
@@ -23,10 +24,17 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
   int _countdown = 3; // Countdown starts from 3
   Timer? _timer;
 
+  String storagePending = "";
+
   @override
   void initState() {
     super.initState();
     _initializeControllerFuture = _initializeController();
+  }
+
+  @override
+  Future<void> didChangeDependencies() async {
+    storagePending = (await AppStorage.$read(key: StorageKey.pendingStatus))!;
   }
 
   Future<void> _initializeController() async {
@@ -79,14 +87,22 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
       if (response.statusCode == 200) {
         try {
           Map<String, dynamic> responseObj = jsonDecode(responseBody);
-          log("Response $responseObj");
+          log("ResponsSSSSSSSe $responseObj");
+
+          log(responseObj['data'][0]['id']);
 
           // if (responseObj['success'] == true) {
-            String photoId = responseObj['data']['id'];
+            String photoId = responseObj['data'][0]['id'];
+            log('IT SHOULD WORK HERE=======================');
             log('Photo uploaded successfully! Photo ID: $photoId');
 
-            ref.read(homeVMProvider).updatePhotoId(photoId);
-            log("==================== updatePhotoId: $photoId =======================");
+            await ref.read(homeVMProvider).updatePhotoId(photoId);
+
+          if (storagePending != null) {
+            log("Post data should work rn");
+            await ref.read(homeVMProvider).postData(storagePending);
+            // ref.read(homeVMProvider).pendingStatus = null;
+          }
 
             return;
           // } else {
@@ -111,7 +127,7 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
 
       final XFile image = await _controller.takePicture();
 
-      _uploadPhoto(image);
+      await _uploadPhoto(image);
     } catch (e) {
       log('Error taking picture: $e');
     }

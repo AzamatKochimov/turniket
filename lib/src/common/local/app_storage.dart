@@ -2,7 +2,6 @@ import "package:flutter_secure_storage/flutter_secure_storage.dart";
 
 enum StorageKey {
   token,
-  pinCode,
   locale,
   theme,
   user,
@@ -10,6 +9,8 @@ enum StorageKey {
   PIN_SETUP_INCOMPLETE,
   CONFIRM_CODE,
   isBioOn,
+  pendingStatus,
+  qrData,
 }
 
 class AppStorage extends FlutterSecureStorage {

@@ -1,51 +1,91 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:time_pad/generated/assets.dart';
 
-class HomeInfo extends StatelessWidget {
+class HomeInfo extends StatefulWidget {
   const HomeInfo({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final DateTime now = DateTime.now();
-    final String formattedTime = DateFormat('HH:mm').format(now);
-    final String formattedPeriod = DateFormat('a').format(now);
-    final String formattedDate = DateFormat('EEEE, MMMM dd').format(now);
-    final String capitalizedDate = formattedDate.split(', ').map((str) => str.substring(0, 1).toUpperCase() + str.substring(1)).join(', ');
-    final String timezoneOffset = now.timeZoneOffset.isNegative
-        ? "-${now.timeZoneOffset.abs().inHours.toString().padLeft(2, '0')}:${(now.timeZoneOffset.abs().inMinutes % 60).toString().padLeft(2, '0')}"
-        : "+${now.timeZoneOffset.inHours.toString().padLeft(2, '0')}:${(now.timeZoneOffset.inMinutes % 60).toString().padLeft(2, '0')}";
+  _HomeInfoState createState() => _HomeInfoState();
+}
 
-    return Container(
-      margin: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 30.h),
-      width: double.infinity,
-      alignment: Alignment.topCenter,
+class _HomeInfoState extends State<HomeInfo> {
+  late Timer _timer;
+  late DateTime _now;
+
+  @override
+  void initState() {
+    super.initState();
+    _now = DateTime.now();
+    _timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        _now = DateTime.now();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final String formattedTime = DateFormat('HH:mm').format(_now);
+    final String formattedDate = DateFormat('EEEE, MMMM dd').format(_now);
+    final String capitalizedDate = formattedDate
+        .split(', ')
+        .map((str) => str.substring(0, 1).toUpperCase() + str.substring(1))
+        .join(', ');
+
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 10.h),
-          Text("PDP Junior", style: TextStyle(fontSize: 24.sp, color: Colors.white)),
-          Text("Toshkent, O'zbekiston", style: TextStyle(fontSize: 20.sp, color: Colors.white)),
+          Row(
+            children: [
+              Image.asset(Assets.imagesSvgImage1, height: 50.h),
+              const Spacer(),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    "PDP Junior",
+                    style: TextStyle(fontSize: 24.sp, color: Colors.white),
+                  ),
+                  Text(
+                    "Toshkent, O'zbekiston",
+                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
           SizedBox(height: 20.h),
-          Text(formattedTime, style: TextStyle(fontSize: 68.sp, fontWeight: FontWeight.w700, color: Colors.white)),
-          SizedBox(
-            width: 240.w,
-            child: const Divider(
-              height: 2,
-              thickness: 2,
+          Text(
+            formattedTime,
+            style: TextStyle(
+              fontSize: 64.sp,
+              fontWeight: FontWeight.bold,
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 5.h),
-          Text(capitalizedDate, style: TextStyle(fontSize: 20.sp, color: Colors.white)),
-          SizedBox(height: 10.h),
-          Text(timezoneOffset, style: TextStyle(fontSize: 14.sp, color: Colors.white)),
-          SizedBox(height: 15.h),
-          Text("QR kodni skayner qiling", style: TextStyle(fontSize: 18.sp, color: Colors.white)),
-          SizedBox(height: 36.h),
-          Text("Shtrix-kod to'liq ko'rinishi shart", textAlign: TextAlign.center, style: TextStyle(fontSize: 18.sp, color: Colors.white)),
+          SizedBox(
+            width: 240.w,
+            child: const Divider(
+              color: Colors.white,
+              thickness: 2,
+            ),
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            capitalizedDate,
+            style: TextStyle(fontSize: 20.sp, color: Colors.white),
+          ),
         ],
       ),
     );
