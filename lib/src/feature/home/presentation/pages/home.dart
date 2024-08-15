@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../view_model/home_vm.dart';
 import '../widgets/home_widgets.dart';
 import '../widgets/qr_scanner.dart';
@@ -14,7 +13,7 @@ class HomePage extends ConsumerWidget {
 
     if (homeVM.isLoading) {
       return const Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         body: Center(
           child: CircularProgressIndicator(),
         ),
@@ -23,7 +22,7 @@ class HomePage extends ConsumerWidget {
 
     if (homeVM.error != null) {
       return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.black,
         body: Center(
           child: Text(
             homeVM.error!,
@@ -33,39 +32,24 @@ class HomePage extends ConsumerWidget {
       );
     }
 
-    return Stack(
-      children: [
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-            child: Stack(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Column(
               children: [
-                Positioned.fill(
-                  child: Image.asset(
-                    'assets/background.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HomeInfo(),
-                    Expanded(
-                      child: QrScanner(),
-                    ),
-                  ],
-                ),
+                const HomeInfo(),
+                Expanded(child: QrScanner()),
               ],
             ),
-          ),
+            if (homeVM.isPosting)
+              const Center(
+                child: CircularProgressIndicator(),
+              ),
+          ],
         ),
-        if (homeVM.isPosting) // Show loading indicator during postData
-          const Positioned.fill(
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-      ],
+      ),
     );
   }
 }
