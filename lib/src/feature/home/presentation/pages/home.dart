@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:time_pad/generated/assets.dart';
 import '../../view_model/home_vm.dart';
 import '../widgets/home_widgets.dart';
 import '../widgets/qr_scanner.dart';
@@ -15,7 +16,9 @@ class HomePage extends ConsumerWidget {
       return const Scaffold(
         backgroundColor: Colors.black,
         body: Center(
-          child: CircularProgressIndicator(),
+          child: Center(
+            child: FloatingImage(),
+          ),
         ),
       );
     }
@@ -37,9 +40,9 @@ class HomePage extends ConsumerWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            Column(
+            const Column(
               children: [
-                const HomeInfo(),
+                HomeInfo(),
                 Expanded(child: QrScanner()),
               ],
             ),
@@ -53,3 +56,55 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
+
+class FloatingImage extends StatefulWidget {
+  const FloatingImage({super.key});
+
+  @override
+  _FloatingImageState createState() => _FloatingImageState();
+}
+
+class _FloatingImageState extends State<FloatingImage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _animation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeInOut,
+    ));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _animation.value),
+          child: child,
+        );
+      },
+      child: Center(
+        child: Image.asset(
+          Assets.imagesPdpJuniorLogo,
+          height: 100,
+        ),
+      ),
+    );
+  }
+}
+

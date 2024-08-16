@@ -21,7 +21,7 @@ class Confirmation extends ConsumerStatefulWidget {
 class _ConfirmationState extends ConsumerState<Confirmation> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
-  int _countdown = 3; // Countdown starts from 3
+  int _countdown = 1;
   Timer? _timer;
 
   String storagePending = "";
@@ -55,9 +55,9 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
   }
 
   void _startCountdown() {
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        if (_countdown > 3) {
+        if (_countdown > 1) {
           _countdown--;
         } else {
           _takePicture();
@@ -98,11 +98,9 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
 
             await ref.read(homeVMProvider).updatePhotoId(photoId);
 
-          if (storagePending != null) {
-            log("Post data should work rn");
-            await ref.read(homeVMProvider).postData(storagePending);
-            // ref.read(homeVMProvider).pendingStatus = null;
-          }
+          log("Post data should work rn");
+          await ref.read(homeVMProvider).postData(storagePending);
+          // ref.read(homeVMProvider).pendingStatus = null;
 
             return;
           // } else {
@@ -146,15 +144,6 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            height: 100,
-            alignment: Alignment.center,
-            color: Colors.transparent,
-            child: Text(
-              '$_countdown',
-              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-            ),
-          ),
           Expanded(
             child: FutureBuilder<void>(
               future: _initializeControllerFuture,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -21,23 +22,27 @@ class HomeVM extends ChangeNotifier {
   bool _isLoading = true;
   bool _isPosting = false;
   String? _photoId;
+
   // String? pendingStatus;
   String? _error;
   QRViewController? _qrController;
   CameraController? _cameraController;
   bool _isDialogShowing = false;
   String? name;
-  bool _isDialogDismissed = false;
+
+  // bool _isDialogDismissed = false;
 
   HomeVM(this.ref) {
     _loadData();
   }
 
   bool get isLoading => _isLoading;
+
   bool get isPosting => _isPosting;
+
   String? get error => _error;
+
   String? get photoId => _photoId;
-  bool? get isDialogDismissed => _isDialogDismissed;
 
   Future<void> _loadData() async {
     try {
@@ -50,7 +55,7 @@ class HomeVM extends ChangeNotifier {
     }
   }
 
-  Future<void> updatePhotoId(String id)async {
+  Future<void> updatePhotoId(String id) async {
     log("========================================updatePhotoId");
     log("here i am ${await AppStorage.$read(key: StorageKey.pendingStatus)}");
     _photoId = id;
@@ -89,7 +94,7 @@ class HomeVM extends ChangeNotifier {
     return null;
   }
 
-  Future<void> setPendingStatus(String status) async{
+  Future<void> setPendingStatus(String status) async {
     log("==================== setPendingStatus: $status =======================");
     // pendingStatus = status;
     await AppStorage.$write(key: StorageKey.pendingStatus, value: status);
@@ -159,24 +164,27 @@ class HomeVM extends ChangeNotifier {
     }
   }
 
-  Future<void> handleQRScan(QRViewController qrController, BuildContext context) async {
+  Future<void> handleQRScan(QRViewController controller, BuildContext context) async {
     log("-----------handleQRScan-----------");
-    qrController.pauseCamera();
-    isDialogDismissed == true;
-    _qrController!.resumeCamera();
+    controller.pauseCamera();
+    // _isDialogDismissed = true;
+    // _qrController!.resumeCamera();
 
     await showDialog(
-      barrierDismissible: true,
+      barrierDismissible: false,
       context: context,
       builder: (context) => _buildQRDialog(context),
     );
 
-    _qrController!.resumeCamera();
+    if (Platform.isAndroid) {
+      await controller.resumeCamera();
+    }
+
   }
 
   Widget _buildQRDialog(BuildContext context) {
     return AlertDialog(
-      title: Text(name ?? '', textAlign: TextAlign.center),
+      title: Text(name!, textAlign: TextAlign.center),
       actions: [
         SizedBox(
           width: double.infinity,
@@ -184,33 +192,49 @@ class HomeVM extends ChangeNotifier {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              MaterialButton(
-                onPressed: () async {
-                  isDialogDismissed ==false;
-                  await setPendingStatus("EXIT");
-                  log("==================== EXIT =======================");
-                  if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
-                    context.go(AppRouteName.confirmPage);
-                  }
-                },
-                color: Colors.red,
-                textColor: Colors.white,
-                child: const Text('Ishni tugatish'),
+              SizedBox(
+                width: MediaQuery.sizeOf(context).width*0.6,
+                child: MaterialButton(
+                  onPressed: () async {
+                    // _isDialogDismissed = false;
+                    await setPendingStatus("ENTER");
+                    log("==================== ENTER =======================");
+                    if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
+                      context.go(AppRouteName.confirmPage);
+                    }
+                  },
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  child: const Text('Ishni boshlash'),
+                ),
               ),
-              MaterialButton(
-                onPressed: () async {
-                  isDialogDismissed == false;
-                  await setPendingStatus("ENTER");
-                  log("==================== ENTER =======================");
-                  if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
-                    context.go(AppRouteName.confirmPage);
-                  }
-                },
-                color: Colors.green,
-                textColor: Colors.white,
-                child: const Text('Ishni boshlash'),
+              SizedBox(
+                width: MediaQuery.sizeOf(context).width*0.6,
+                child: MaterialButton(
+                  onPressed: () async {
+                    // _isDialogDismissed = false;
+                    await setPendingStatus("EXIT");
+                    log("==================== EXIT =======================");
+                    if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
+                      context.go(AppRouteName.confirmPage);
+                    }
+                  },
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  child: const Text('Ishni tugatish'),
+                ),
               ),
-
+              SizedBox(
+                width: MediaQuery.sizeOf(context).width*0.6,
+                child: MaterialButton(
+                  onPressed: () async {
+                    context.go(AppRouteName.loading);
+                  },
+                  color: Colors.amber,
+                  textColor: Colors.white,
+                  child: const Text("Bekor qilish"),
+                ),
+              ),
             ],
           ),
         ),

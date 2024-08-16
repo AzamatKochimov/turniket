@@ -3,6 +3,7 @@ class Assets {
   Assets._();
 
   static const String assetsBackground = 'assets/background.png';
+  static const String imagesPdpJuniorLogo = 'assets/images/pdp_junior_logo.png';
   static const String imagesSvgImage1 = 'assets/images/svg-image-1.png';
 
 }
