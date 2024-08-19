@@ -34,6 +34,7 @@ class _HomeInfoState extends State<HomeInfo> {
 
   @override
   Widget build(BuildContext context) {
+    const Color textColor = Colors.white;
     final String formattedTime = DateFormat('HH:mm').format(_now);
     final String formattedDate = DateFormat('EEEE, MMMM dd').format(_now);
     final String capitalizedDate = formattedDate
@@ -48,18 +49,18 @@ class _HomeInfoState extends State<HomeInfo> {
         children: [
           Row(
             children: [
-              Image.asset(Assets.imagesPdpJuniorLogo, height: 50.h),
+              Image.asset(Assets.imagesPdpJuniorLogo, height: 60.h),
               const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
                     "PDP Junior",
-                    style: TextStyle(fontSize: 24.sp, color: Colors.white),
+                    style: TextStyle(fontSize: 24.sp, color: textColor),
                   ),
                   Text(
                     "Toshkent, O'zbekiston",
-                    style: TextStyle(fontSize: 16.sp, color: Colors.white),
+                    style: TextStyle(fontSize: 16.sp, color: textColor),
                   ),
                 ],
               ),
@@ -71,7 +72,7 @@ class _HomeInfoState extends State<HomeInfo> {
             style: TextStyle(
               fontSize: 64.sp,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: textColor,
             ),
           ),
           SizedBox(
@@ -84,8 +85,9 @@ class _HomeInfoState extends State<HomeInfo> {
           SizedBox(height: 8.h),
           Text(
             capitalizedDate,
-            style: TextStyle(fontSize: 20.sp, color: Colors.white),
+            style: TextStyle(fontSize: 20.sp, color: textColor),
           ),
+          SizedBox(height: 30.h),
         ],
       ),
     );

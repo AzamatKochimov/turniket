@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:time_pad/generated/assets.dart';
+
 import '../../view_model/home_vm.dart';
 import '../widgets/home_widgets.dart';
 import '../widgets/qr_scanner.dart';
@@ -40,10 +42,22 @@ class HomePage extends ConsumerWidget {
       body: SafeArea(
         child: Stack(
           children: [
-            const Column(
+            Column(
               children: [
-                HomeInfo(),
-                Expanded(child: QrScanner()),
+                const HomeInfo(),
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        top: BorderSide(width: 1.5, color: Colors.white),
+                        left: BorderSide.none,
+                        right: BorderSide.none,
+                        bottom: BorderSide.none,
+                      ),
+                    ),
+                    child: const QrScanner(),
+                  ),
+                ),
               ],
             ),
             if (homeVM.isPosting)
@@ -107,4 +121,3 @@ class _FloatingImageState extends State<FloatingImage> with SingleTickerProvider
     );
   }
 }
-
