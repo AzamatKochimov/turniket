@@ -184,33 +184,49 @@ class HomeVM extends ChangeNotifier {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              MaterialButton(
-                onPressed: () async {
-                  isDialogDismissed ==false;
-                  await setPendingStatus("EXIT");
-                  log("==================== EXIT =======================");
-                  if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
-                    context.go(AppRouteName.confirmPage);
-                  }
-                },
-                color: Colors.red,
-                textColor: Colors.white,
-                child: const Text('Ishni tugatish'),
+              SizedBox(
+                width: MediaQuery.sizeOf(context).width*0.6,
+                child: MaterialButton(
+                  onPressed: () async {
+                    // _isDialogDismissed = false;
+                    await setPendingStatus("ENTER");
+                    log("==================== ENTER =======================");
+                    if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
+                      context.go(AppRouteName.confirmPage);
+                    }
+                  },
+                  color: Colors.green,
+                  textColor: Colors.white,
+                  child: const Text('Ishni boshlash'),
+                ),
               ),
-              MaterialButton(
-                onPressed: () async {
-                  isDialogDismissed == false;
-                  await setPendingStatus("ENTER");
-                  log("==================== ENTER =======================");
-                  if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
-                    context.go(AppRouteName.confirmPage);
-                  }
-                },
-                color: Colors.green,
-                textColor: Colors.white,
-                child: const Text('Ishni boshlash'),
+              SizedBox(
+                width: MediaQuery.sizeOf(context).width*0.6,
+                child: MaterialButton(
+                  onPressed: () async {
+                    // _isDialogDismissed = false;
+                    await setPendingStatus("EXIT");
+                    log("==================== EXIT =======================");
+                    if (await AppStorage.$read(key: StorageKey.pendingStatus) != null) {
+                      context.go(AppRouteName.confirmPage);
+                    }
+                  },
+                  color: Colors.red,
+                  textColor: Colors.white,
+                  child: const Text('Ishni tugatish'),
+                ),
               ),
-
+              SizedBox(
+                width: MediaQuery.sizeOf(context).width*0.6,
+                child: MaterialButton(
+                  onPressed: () async {
+                    context.go(AppRouteName.loading);
+                  },
+                  color: Colors.amber,
+                  textColor: Colors.white,
+                  child: const Text("Bekor qilish"),
+                ),
+              ),
             ],
           ),
         ),

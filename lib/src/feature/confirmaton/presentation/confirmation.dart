@@ -146,15 +146,15 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            height: 100,
-            alignment: Alignment.center,
-            color: Colors.transparent,
-            child: Text(
-              '$_countdown',
-              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
-            ),
-          ),
+          // Container(
+          //   height: 100,
+          //   alignment: Alignment.center,
+          //   color: Colors.transparent,
+          //   child: Text(
+          //     '$_countdown',
+          //     style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
           Expanded(
             child: FutureBuilder<void>(
               future: _initializeControllerFuture,

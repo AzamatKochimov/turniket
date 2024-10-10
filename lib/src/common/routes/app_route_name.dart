@@ -15,5 +15,6 @@ final class AppRouteName {
 
   // confirmation
   static const String confirmPage = "/confirm_page";
+  static const String loading = "/loading_page";
 
 }

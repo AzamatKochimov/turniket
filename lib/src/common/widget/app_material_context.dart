@@ -23,7 +23,7 @@ class MaterialContext extends StatelessWidget {
         builder: (BuildContext context) {
           AppStorage appStorage = AppStorage();
           return MaterialApp.router(
-            onGenerateTitle: (BuildContext context) => "PDP Invest",
+            onGenerateTitle: (BuildContext context) => "PDP Junior",
             routerConfig: AppRouter.router,
             restorationScopeId: "material_app",
             debugShowCheckedModeBanner: false,
