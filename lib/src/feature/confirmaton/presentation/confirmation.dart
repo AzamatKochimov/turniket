@@ -55,9 +55,9 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
   }
 
   void _startCountdown() {
-    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        if (_countdown > 3) {
+        if (_countdown > 1) {
           _countdown--;
         } else {
           _takePicture();
