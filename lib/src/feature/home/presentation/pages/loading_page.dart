@@ -16,7 +16,7 @@ class _LoadingPageState extends State<LoadingPage> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 800), () {
+    Future.delayed(const Duration(milliseconds: 400), () {
       if (mounted) {
         context.go(AppRouteName.homePage);
       }

@@ -41,7 +41,7 @@ class HomeVM extends ChangeNotifier {
 
   Future<void> _loadData() async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
       _isLoading = false;
     } catch (e) {
       _error = "Failed to load data";

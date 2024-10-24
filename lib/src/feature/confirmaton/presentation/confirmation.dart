@@ -9,6 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:time_pad/src/common/local/app_storage.dart';
 import 'package:time_pad/src/common/routes/app_route_name.dart';
 
+import '../../../../generated/assets.dart';
 import '../../home/view_model/home_vm.dart';
 
 class Confirmation extends ConsumerStatefulWidget {
@@ -34,6 +35,7 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
 
   @override
   Future<void> didChangeDependencies() async {
+    super.didChangeDependencies();
     storagePending = (await AppStorage.$read(key: StorageKey.pendingStatus))!;
   }
 
@@ -55,14 +57,14 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
   }
 
   void _startCountdown() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(milliseconds: 800), (timer) {
       setState(() {
-        if (_countdown > 1) {
-          _countdown--;
-        } else {
+        // if (_countdown > 1) {
+        //   _countdown--;
+        // } else {
           _takePicture();
           timer.cancel();
-        }
+      //   }
       });
     });
   }
@@ -126,12 +128,12 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
       await _initializeControllerFuture;
 
       final XFile image = await _controller.takePicture();
+      context.go(AppRouteName.homePage);
 
       await _uploadPhoto(image);
     } catch (e) {
       log('Error taking picture: $e');
     }
-    context.go(AppRouteName.homePage);
   }
 
   @override
@@ -144,6 +146,7 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Column(
         children: [
           // Container(
@@ -162,7 +165,10 @@ class _ConfirmationState extends ConsumerState<Confirmation> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return CameraPreview(_controller);
                 } else {
-                  return const Center(child: CircularProgressIndicator());
+                  return Center(child: Image.asset(
+                    Assets.imagesPdpJuniorLogo,
+                    height: 200,
+                  ),);
                 }
               },
             ),

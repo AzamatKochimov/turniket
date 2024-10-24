@@ -13,10 +13,13 @@ class HomePage extends ConsumerWidget {
     final homeVM = ref.watch(homeVMProvider);
 
     if (homeVM.isLoading) {
-      return const Scaffold(
+      return Scaffold(
         backgroundColor: Colors.black,
         body: Center(
-          child: CircularProgressIndicator(),
+          child: Image.asset(
+            Assets.imagesPdpJuniorLogo,
+            height: 130,
+          ),
         ),
       );
     }
@@ -45,8 +48,11 @@ class HomePage extends ConsumerWidget {
               ],
             ),
             if (homeVM.isPosting)
-              const Center(
-                child: CircularProgressIndicator(),
+              Center(
+                child: Image.asset(
+                  Assets.imagesPdpJuniorLogo,
+                  height: 130,
+                ),
               ),
           ],
         ),
@@ -71,7 +77,7 @@ class _FloatingImageState extends State<FloatingImage> with SingleTickerProvider
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 2),
+      duration: const Duration(milliseconds: 800),
     )..repeat(reverse: true);
 
     _animation = Tween<double>(begin: 0, end: 10).animate(CurvedAnimation(
@@ -98,8 +104,8 @@ class _FloatingImageState extends State<FloatingImage> with SingleTickerProvider
       },
       child: Center(
         child: Image.asset(
-          Assets.imagesSvgImage1,
-          height: 100,
+          Assets.imagesPdpJuniorLogo,
+          height: 130,
         ),
       ),
     );

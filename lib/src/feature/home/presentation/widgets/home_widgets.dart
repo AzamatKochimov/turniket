@@ -48,7 +48,7 @@ class _HomeInfoState extends State<HomeInfo> {
         children: [
           Row(
             children: [
-              Image.asset(Assets.imagesSvgImage1, height: 50.h),
+              Image.asset(Assets.imagesPdpJuniorLogo, height: 50.h),
               const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
